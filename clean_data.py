@@ -1,6 +1,6 @@
 import pandas as pd
 
-raw_df = pd.read_csv("landsend_veg_2007_2012.csv", na_values = '-')
+raw_df = pd.read_csv("landsend_veg_2007_2012.csv", na_values = ['-', ''])
 
 original_count = raw_df.count()
 
@@ -8,10 +8,13 @@ original_count = raw_df.count()
 raw_df.columns = [u'site_year_code', u'transect', u'point', u'height ',
                   u'species', u'plant_code', u'native_status',
                   u'life_history', u'stature']
+# lowercase species names
 raw_df['species'] = raw_df['species'].str.lower()
 
 species_info = raw_df[[u'species', u'plant_code', u'native_status',
                        u'life_history', u'stature']]
+
+# find and replace spelling mistakes
 spelling_fixes = {
     "anagallis arvensis": "anagalis arvensis",
     'gnaphalium luteo-album': 'gnaphalium luteoalbum',
@@ -21,16 +24,17 @@ spelling_fixes = {
     'medicago indica': 'melilotus indica'
 }
 
-[species_info.replace(to_replace=misspelled,
-                     value=spelled,
-                     inplace=True) for misspelled, spelled in
-  spelling_fixes.iteritems()]
+[species_info.replace(to_replace=misspelled, value=spelled, inplace=True)
+ for misspelled, spelled in spelling_fixes.iteritems()]
 
-species_info.replace(to_replace="Anagallis arvensis",
-                     value="Anagalis arvensis",
-                     inplace=True)
 species_info = species_info.dropna(how='any')
 known_species_info = species_info.drop_duplicates()
+known_species_info = known_species_info[~((known_species_info.species ==
+                                           'ehrharta erecta') & (
+                                          known_species_info.life_history == 'Annual') | (
+                                          known_species_info.species == 'elymus glaucus') & (
+                                          known_species_info.stature == 'Forb'))]
+
 joined_species_info = pd.merge(raw_df, known_species_info, on='species',
                            how='left')
 # select the native status and life history with the least nulls
