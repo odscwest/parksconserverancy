@@ -21,7 +21,51 @@ spelling_fixes = {
     'ceanothus thrysiflorus': 'ceanothus thyrsiflorus',
     'anthriscus cacaulis': 'anthriscus caucalis',
     'marah fabaceous': 'marah fabaceus',
-    'medicago indica': 'melilotus indica'
+    'medicago indica': 'melilotus indica',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'artemisa californica': 'artemisia californica',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'baccharius pilularis': 'baccharis pilularis',
+    'juncus lesuerii': : 'juncus lesueurii',
+    'juncus leseuerii': 'juncus lesueurii',
+    'mimulus auranticus': 'mimulus aurantiacus',
+    'phacilia californica': 'phacelia californica',
+    'sonchus oleraceous': 'sonchus oleraceus',
+    'viscia sativa': 'vicia sativa',
+    'anthriscus cacaulis': 'anthriscus caucalis',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'iris douglasii': 'iris douglasiana',
+    'polygonum paranychium': 'polygonum paronychia',
+    'taraxacum officinalis': 'taraxacum offianale',
+    'tree stump': 'dead tree stump',
+    'annual grass litter': 'litter',
+    'grass litter': 'litter',
+    'pira litter': 'litter',
+    'solanum': 'solanum sp.',
+    'thatch': 'litter',
+    'annual exotic grass': 'grass',
+    'bromus diandrus ': 'bromus diandrus',
+    'avsp litter': 'litter',
+    'brdi litter': 'litter',
+    'bromus corinatus ssp. maritimus': 'bromus corinatus',
+    'brma litter': 'litter',
+    'cuma litter': 'litter',
+    'cypress litter': 'litter',
+    'grass litter': 'litter',
+    'grindelia hirsutula var. hirsutula': 'grindelia hirsutula',
+    'hedera helix ssp. canariensis': 'hedera helix',
+    "losp litter": 'litter',
+    "pira litter": 'litter',
+    "thatch/woody debris" : 'litter',
+    "cuma pira litter": 'litter',
+    "grindelia hirsutula var. maritima": "grindelia hirsutula",
+    "plant debris litter": "litter",
+    "unknown grass": 'grass',
+    'tarp/fabric': 'litter'
+    
+    
+    
+    
 }
 
 [species_info.replace(to_replace=misspelled, value=spelled, inplace=True)
