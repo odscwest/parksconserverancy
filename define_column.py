@@ -1,3 +1,4 @@
+#coding=UTF-8
 '''
 Contains one function `define_column(col_name)` that prints and returns the definition of a column from the golden gate conservancy dataset.
 '''
