@@ -2,7 +2,7 @@
 
 [helpful synopsis data](#helpful-synopsis-data) -
 [exercises](#exercises) -
-[ideas](#ideas) -  
+[ideas](#ideas) - 
 [goals](#goals) -
 [output](#output) -
 [reference](#reference) -
