@@ -8,10 +8,27 @@ original_count = raw_df.count()
 raw_df.columns = [u'site_year_code', u'transect', u'point', u'height ',
                   u'species', u'plant_code', u'native_status',
                   u'life_history', u'stature']
+raw_df['species'] = raw_df['species'].str.lower()
 
 species_info = raw_df[[u'species', u'plant_code', u'native_status',
                        u'life_history', u'stature']]
-species_info.replace(to_replace="Anagallis arvensis", value="Anagalis arvensis")
+spelling_fixes = {
+    "anagallis arvensis": "anagalis arvensis",
+    'gnaphalium luteo-album': 'gnaphalium luteoalbum',
+    'ceanothus thrysiflorus': 'ceanothus thyrsiflorus',
+    'anthriscus cacaulis': 'anthriscus caucalis',
+    'marah fabaceous': 'marah fabaceus',
+    'medicago indica': 'melilotus indica'
+}
+
+[species_info.replace(to_replace=misspelled,
+                     value=spelled,
+                     inplace=True) for misspelled, spelled in
+  spelling_fixes.iteritems()]
+
+species_info.replace(to_replace="Anagallis arvensis",
+                     value="Anagalis arvensis",
+                     inplace=True)
 species_info = species_info.dropna(how='any')
 known_species_info = species_info.drop_duplicates()
 joined_species_info = pd.merge(raw_df, known_species_info, on='species',
