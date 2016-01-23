@@ -1,6 +1,13 @@
 #coding=UTF-8
 '''
 Contains one function `define_column(col_name)` that prints the definition of a column from the golden gate conservancy dataset.
+
+USAGE:
+```
+from define_column import define_column
+
+define_column('Transect'
+```
 '''
 
 
@@ -23,7 +30,7 @@ DEFINITIONS = {
     'Scientific Name':
     'The Latin genus and species assigned to the plant based on the Jepson Manual of California (1993 version, it has since been updated with new names in 2012). \n\nThe Jepson can be accessed online at ucjeps.berkeley.edu or on CalFlora at www.calflora.org',
 
-    'Species':
+    'Species    ':
     'The Latin genus and species assigned to the plant based on the Jepson Manual of California (1993 version, it has since been updated with new names in 2012). \n\nThe Jepson can be accessed online at ucjeps.berkeley.edu or on CalFlora at www.calflora.org',
 
     'Plant Code':
