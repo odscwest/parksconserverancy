@@ -1,5 +1,13 @@
 **SHORTLINK: http://bit.ly/1UiQySY**
 
+[helpful synopsis data](#helpful-synopsis-data) -
+[exercises](#exercises) -
+[ideas](#ideas) -  
+[goals](#goals) -
+[output](#output) -
+[reference](#reference) -
+[column definitions](#definitions)
+
 ## DATA ACCESS
 [Github project](https://github.com/odscwest/parksconserverancy)
 
@@ -7,7 +15,6 @@ Each person can:
 
 A. clone and send final project back by email
 B. create their own fork to work within the project
-
 
 
 ### Access to raw data
@@ -54,7 +61,8 @@ Use both qualitative and quantitative information to provide the conservancy wit
 
 Interesting findings or other ideas welcome!!
 
-#### Factors to consider (note: these are just ideas - by no means all encompassing):
+#### Factors to consider
+*(note: these are just ideas - by no means all encompassing)*:
 
 ##### Habitat analysis
 
@@ -85,7 +93,7 @@ Interesting findings or other ideas welcome!!
     - estimate stature composition
 
 ### You
- _ The opportunity to analyze a real data set and submit a set of recommendations, tools or models that will be directly applied -- i.e. real work experience!
+ - The opportunity to analyze a real data set and submit a set of recommendations, tools or models that will be directly applied -- i.e., real work experience!
 
 #### Convincing your boss 101:
 - you need metrics to support your conclusions
