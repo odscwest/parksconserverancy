@@ -1,9 +1,9 @@
 #install.packages(dplyr)
 library(dplyr)
-setwd("/Users/yiwenyu/Downloads")
+# setwd("/Users/yiwenyu/Downloads")
 library(ggplot2)
 
-sample=read.csv("parksconserverancy-master/landsend_veg_2007_2012.csv") #no.strings option!!!
+sample=read.csv("landsend_veg_2007_2012.csv") #no.strings option!!!
 ideal_mix=read.csv("Ideal mix.csv") #no.strings option!!!
 
 str(sample)
@@ -46,7 +46,7 @@ ggplot(data=by_stature_year,aes(x=Stature,y=count_species,fill=year) )+geom_bar(
 
 #summary()#hashtable
 
-sub=sample %>% filter(sample$sitecode=="SUDO")    
+sub=sample %>% filter(sample$sitecode=="SUDU")    
 
 #Current Scrub mix
 Shrub_sample <- sample[ which(sample$Stature=='Shrub' ), ]
