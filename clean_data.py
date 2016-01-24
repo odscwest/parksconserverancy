@@ -1,6 +1,6 @@
 import pandas as pd
 
-raw_df = pd.read_csv("landsend_veg_2007_2012.csv", na_values = '-')
+raw_df = pd.read_csv("landsend_veg_2007_2012.csv", na_values = ['-', ''])
 
 original_count = raw_df.count()
 
@@ -8,12 +8,77 @@ original_count = raw_df.count()
 raw_df.columns = [u'site_year_code', u'transect', u'point', u'height ',
                   u'species', u'plant_code', u'native_status',
                   u'life_history', u'stature']
+# lowercase species names
+raw_df['species'] = raw_df['species'].str.lower()
 
 species_info = raw_df[[u'species', u'plant_code', u'native_status',
                        u'life_history', u'stature']]
-species_info.replace(to_replace="Anagallis arvensis", value="Anagalis arvensis")
+
+# find and replace spelling mistakes
+spelling_fixes = {
+    "anagallis arvensis": "anagalis arvensis",
+    'gnaphalium luteo-album': 'gnaphalium luteoalbum',
+    'ceanothus thrysiflorus': 'ceanothus thyrsiflorus',
+    'anthriscus cacaulis': 'anthriscus caucalis',
+    'marah fabaceous': 'marah fabaceus',
+    'medicago indica': 'melilotus indica',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'artemisa californica': 'artemisia californica',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'baccharius pilularis': 'baccharis pilularis',
+    'juncus lesuerii': : 'juncus lesueurii',
+    'juncus leseuerii': 'juncus lesueurii',
+    'mimulus auranticus': 'mimulus aurantiacus',
+    'phacilia californica': 'phacelia californica',
+    'sonchus oleraceous': 'sonchus oleraceus',
+    'viscia sativa': 'vicia sativa',
+    'anthriscus cacaulis': 'anthriscus caucalis',
+    'artemisa pycnocephala': 'artemisia pycnocephala',
+    'iris douglasii': 'iris douglasiana',
+    'polygonum paranychium': 'polygonum paronychia',
+    'taraxacum officinalis': 'taraxacum offianale',
+    'tree stump': 'dead tree stump',
+    'annual grass litter': 'litter',
+    'grass litter': 'litter',
+    'pira litter': 'litter',
+    'solanum': 'solanum sp.',
+    'thatch': 'litter',
+    'annual exotic grass': 'grass',
+    'bromus diandrus ': 'bromus diandrus',
+    'avsp litter': 'litter',
+    'brdi litter': 'litter',
+    'bromus corinatus ssp. maritimus': 'bromus corinatus',
+    'brma litter': 'litter',
+    'cuma litter': 'litter',
+    'cypress litter': 'litter',
+    'grass litter': 'litter',
+    'grindelia hirsutula var. hirsutula': 'grindelia hirsutula',
+    'hedera helix ssp. canariensis': 'hedera helix',
+    "losp litter": 'litter',
+    "pira litter": 'litter',
+    "thatch/woody debris" : 'litter',
+    "cuma pira litter": 'litter',
+    "grindelia hirsutula var. maritima": "grindelia hirsutula",
+    "plant debris litter": "litter",
+    "unknown grass": 'grass',
+    'tarp/fabric': 'litter'
+    
+    
+    
+    
+}
+
+[species_info.replace(to_replace=misspelled, value=spelled, inplace=True)
+ for misspelled, spelled in spelling_fixes.iteritems()]
+
 species_info = species_info.dropna(how='any')
 known_species_info = species_info.drop_duplicates()
+known_species_info = known_species_info[~((known_species_info.species ==
+                                           'ehrharta erecta') & (
+                                          known_species_info.life_history == 'Annual') | (
+                                          known_species_info.species == 'elymus glaucus') & (
+                                          known_species_info.stature == 'Forb'))]
+
 joined_species_info = pd.merge(raw_df, known_species_info, on='species',
                            how='left')
 # select the native status and life history with the least nulls

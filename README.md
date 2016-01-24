@@ -15,6 +15,7 @@
 Each person can:
 
 A. clone and send final project back by email
+
 B. create their own fork to work within the project
 
 
@@ -50,7 +51,7 @@ These are ideas that might be helpful to understand navigating through data and 
 ### IDEAS
 These are ideas that might be helpful towards the conservancy’s objectives for hackathon:
 
-- create a YOY graph for various geographic locations and the change in plant species counted
+- create a YOY (year-over-year) graph for various geographic locations and the change in plant species counted
 - create a model that shows how far off conservancy is away from the “ideal scrub mix” proposed (See below)
 - create a revenue model that shows what the projected cost is for achieving ideal mix is for 2016 and how much $ is currently spent
 
