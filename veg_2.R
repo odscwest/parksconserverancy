@@ -1,5 +1,5 @@
 ##### importing vegatation data and getting sense of data
-veg <- read.csv("/Users/pdavoud/Dropbox/Cloudera/parksconserverancy-master 3/cleaned_landsend_veg_2007_2012.csv", na.strings = "")
+veg <- read.csv("/cleaned_landsend_veg_2007_2012.csv", na.strings = "")
 head(veg)
 dim(veg)
 lapply(veg, class)
@@ -61,11 +61,11 @@ ggplot(aes(x = site, y = count_species, fill = year), data = by_site_year) +
 ggplot(aes(x = site, y = count_species), data = by_site_year) +
   geom_bar(stat = "identity")
 
-# grouping by SUDO site
-SUDO <- veg %>% filter(site == "SUDO")
-SUDO
-SUDO_by_year <- SUDO %>% group_by(year) %>% summarise(num_species = n_distinct(species))
-table(SUDO$year, SUDO$Species)
+# grouping by SUDU site
+SUDU <- veg %>% filter(site == "SUDU")
+SUDU
+SUDU_by_year <- SUDU %>% group_by(year) %>% summarise(num_species = n_distinct(species))
+table(SUDU$year, SUDU$Species)
 
 # grouping by height
 by_height_year <- veg %>% 
