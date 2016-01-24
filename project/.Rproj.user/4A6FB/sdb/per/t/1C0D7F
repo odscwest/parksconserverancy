@@ -1,0 +1,18 @@
+{
+    "contents" : "library(ggplot2)\nlibrary(dplyr)\nlibrary(datacomb)\n\nsetwd(\"C:/Users/George Yang/parkmeetup/parksconserverancy-master\")\n\ndf <- read.csv('landsend_veg_2007_2012.csv', stringsAsFactors = FALSE, na.strings = c('-',''))\ndf <- read.csv('cleaned_landsend_veg_2007_2012.csv', stringsAsFactors = FALSE, na.strings = c('-',''))\nnames(df) <- tolower(names(df))\n\n#df <- df[!is.na(df$native_status),]\nstr(df)\nsummary(df)\nunique(df$species)\n\ndf <- df %>% \n  mutate(transect = as.factor(transect),\n         point = as.factor(point), \n         species_lower = tolower(species))\n\ndf$height[df$height == 'L'] <- 'Low'\ndf$height[df$height == 'L '] <- 'Low'\n\ndf$height[df$height == 'M'] <- 'Medium'\ndf$height[df$height == 'H'] <- 'High'\ndf$height[df$height == 'SH'] <- 'Super_High'\n\n\n\nunique(df$species_lower)\nunique(df$height)\ndf$species_lower[df$species_lower == 'anagalis arvensis'] <- 'anagallis arvensis'\ndf$species_lower[df$species_lower == 'gnaphalium luteo-album'] <- 'gnaphalium luteoalbum'\ndf$species_lower[df$species_lower == 'ceanothus thrysiflorus'] <- 'ceanothus thyrsiflorus'\ndf$species_lower[df$species_lower == 'anthriscus caucalis'] <- 'anthriscus cacaulis'\ndf$species_lower[df$species_lower == 'marah fabaceous'] <- 'marah fabaceus'\n\n\n\n\nsummary(df)\nstr(df)\n##split the string\n#df$site.code <- lapply(strsplit(as.character(df$site.yearcode),\n#                                    \"-\"), \"[\", 1)\n\n#df$year <- lapply(strsplit(as.character(df$site.yearcode),\n#                            '-'), '[', 2)\n\n#df <- df %>% mutate(site.code = as.character(unlist(site.code)),\n#                    year = as.character(unlist(year)))\n\n##could also use tidyr\nlibrary(tidyr)\ndf <- separate(data  = df, col = site_year_code, into = c(\"site\", \"year\"))\n#df <- separate(data  = df, col = site.yearcode, into = c(\"site\", \"year\"))\n\ntable(df$year)\nsummary(df)\nby_site <- df %>% group_by(year, site) %>% summarise(count_species = n_distinct(species))\n\nggplot(aes(x = site, y = count_species, fill = year), data = by_site) +\n  geom_bar(stat='identity', position = 'dodge')\ncolnames(df)\ntable(df$year)\n\n\nby_species <- df %>% group_by(year, plant_code) %>% summarise(n=n())\nby_annual <- df %>% group_by(year, life_history) %>% summarise(n=n())\nggplot(aes(x=n, color = plant_code), data = by_species)+geom_histogram()\n\nby_species <- df %>% group_by(year, plant_code) %>% summarise(n=n())\nby_species$year <- as.integer(by_species$year)\nby_species_select <- filter(by_species, plant_code == 'ABLA' | plant_code == 'LOSP')\nggplot(aes(x = year, y = n, color = plant_code), data = by_species_select) +\n  geom_line()\nunique(by_species$plant_code)\n\n\nstr(by_species)\nggplot(aes(x = year, y = n), data = by_species[by_species$species_lower == 'hordeum sp.',])+geom_line()\ncolnames(df)\nby_native <- df %>% group_by(year, height) %>% summarise(n = n())\nggplot(aes(x=year, y = n, fill = height), data = by_native)+geom_bar(stat = 'identity')\n\nsummary(df)\n",
+    "created" : 1453576488704.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3692879772",
+    "id" : "1C0D7F",
+    "lastKnownWriteTime" : 1453592006,
+    "path" : "C:/Users/George Yang/parkmeetup/parksconserverancy-master/project/park.R",
+    "project_path" : "park.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

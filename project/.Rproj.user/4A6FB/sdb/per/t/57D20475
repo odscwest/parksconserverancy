@@ -1,0 +1,18 @@
+{
+    "contents" : "library(shiny)\n\n\nshinyUI(fluidPage(\n  titlePanel(\"plant data\"),\n  \n  sidebarLayout(\n    sidebarPanel(\n      selectInput('plant_code', 'Plant code',\n                  df$plant_code),\n      selectInput('plant_code2', 'Plant code',\n                  df$plant_code),\n      br(),\n      selectInput('species', 'Species',\n                  unique(df$species_lower)),\n      selectInput('species2', 'Species',\n                  unique(df$species_lower))\n      #selectInput('cats', 'Categories',\n      #            colnames(df))\n      \n    ),\n  \n  mainPanel(\n    tabsetPanel(\n    tabPanel(\"compare plant code\",\n    plotOutput('plant_code_plot')),\n    tabPanel(\"compare species\",\n             plotOutput('species_plot')),\n    tabPanel(\"native\",\n             plotOutput('cat_plot')),\n    tabPanel(\"height\",\n             plotOutput('height_plot')),\n    tabPanel(\"life\",\n             plotOutput('life_plot'))\n    \n    \n    )\n  )\n  \n  )))",
+    "created" : 1453582863978.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "856858063",
+    "id" : "57D20475",
+    "lastKnownWriteTime" : 1453592005,
+    "path" : "C:/Users/George Yang/parkmeetup/parksconserverancy-master/project/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
