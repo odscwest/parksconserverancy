@@ -1,0 +1,113 @@
+---
+title: "conservancy"
+author: "Rocio Ng"
+date: "January 23, 2016"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+plant_data <- read.csv("cleaned_landsend_veg_2007_2012.csv", na.strings = c(""))
+head(plant_data)
+
+plant_data <- separate(plant_data, site_year_code, into = c("site", "year"))
+
+
+# covnert transect, point to factor
+plant_data <- plant_data %>% 
+    mutate(transect = as.factor(transect),
+           point = as.factor(point),
+           species = tolower(species))
+
+
+# recode incomplete variables
+plant_data$height[plant_data$height == "L"] <- "Low"
+plant_data$height[plant_data$height == "L "] <- "Low"
+plant_data$height[plant_data$height == "M"] <- "Medium"
+plant_data$height[plant_data$height == "H"] <- "High"
+plant_data <- droplevels(plant_data)
+
+by_transect <- plant_data %>% group_by(transect) %>%
+                summarise(count_species = n_distinct(species)) %>%
+                arrange(desc(count_species))
+
+
+head(by_transect, 20)
+```
+
+```{r}
+# by site
+by_site_year <- plant_data %>% group_by(year, site) %>%
+            summarise(count_species = n_distinct(species)) %>%
+            arrange(desc(count_species))
+
+ggplot(aes(x = site, y = count_species, fill = year), data = by_site_year) +
+    geom_bar(stat="identity") + labs(title = "Numbers of each species at each site by year") + facet_grid(year ~.) + ylab("count of species")
+
+```
+
+```{r}
+SUDO <- plant_data %>% filter(site == "SUDO") 
+SUDO_by_year <- SUDO %>% group_by(year,
+                                  life_history) %>% 
+    summarise(num_species = n_distinct(species))
+```
+
+```{r}
+by_site_transect <- plant_data %>% group_by(site, transect) %>% 
+                    summarise(count = n_distinct(species))
+
+# SUDO site
+by_site_transect_SUDO <- plant_data %>% group_by(year,site, transect,native_status) %>% 
+                    summarise(count = n_distinct(species)) %>% filter(site == "SUDO") %>% filter(year %in% c("2010", "2011", "2012"))
+
+ggplot(aes(x = transect, y = count, fill = native_status), data = by_site_transect_SUDO) + geom_bar(stat="identity") +
+    facet_grid(year ~.) + labs(title = "Distribtuion of Species in the SUDO site") + ylab("Number of species")
+
+# NMS
+by_site_transect_NMS <- plant_data %>% group_by(year,site, transect,native_status) %>% 
+                    summarise(count = n_distinct(species)) %>% filter(site == "NMS")%>% filter(year %in% c("2010", "2011", "2012"))
+
+ggplot(aes(x = transect, y = count, fill = native_status), data = by_site_transect_NMS) + geom_bar(stat="identity") +
+    facet_grid(year ~.) + labs(title = "Distribution of Species in the NMS site") + ylab("Number of species")
+
+# NUWO
+
+by_site_transect_NUWO <- plant_data %>% group_by(year,site, transect,native_status) %>% 
+                    summarise(count = n_distinct(species)) %>% filter(site == "NUWO")
+ggplot(aes(x = transect, y = count, fill = native_status), data = by_site_transect_NUWO) + geom_bar(stat="identity") +
+    facet_grid(year ~.) + labs(title = "Distribution of Species in the NUWO site") + ylab("Number of species")
+
+# EAPO
+
+by_site_transect_NUWO <- plant_data %>% group_by(year,site, transect,native_status) %>% 
+                    summarise(count = n_distinct(species)) %>% filter(site == "EAPO")
+ggplot(aes(x = transect, y = count, fill = native_status), data = by_site_transect_NUWO) + geom_bar(stat="identity") +
+    facet_grid(year ~.) + labs(title = "Distribution of Species in the EAPO site") + ylab("Number of species")
+
+# SUDU
+
+by_site_transect_NUWO <- plant_data %>% group_by(year,site, transect,native_status) %>% 
+                    summarise(count = n_distinct(species)) %>% filter(site == "SUDU")
+ggplot(aes(x = transect, y = count, fill = native_status), data = by_site_transect_NUWO) + geom_bar(stat="identity") +
+    facet_grid(year ~.) + labs(title = "Distribution of Species in the SUDU site") + ylab("Number of species")
+
+
+```
+
+
+```{r}
+by_species <- plant_data %>% group_by(plant_code, species) %>% summarise(count = n())
+
+
+by_site_height <- plant_data %>% group_by(year, site, height) %>% 
+    summarise(count_height = n()) %>% filter(year %in% c("2010", "2011", "2012"))
+
+ggplot(aes(site, y = count_height, fill = height), data = by_site_height) + 
+    geom_bar(stat = "identity", position = "dodge") + facet_grid(year ~ .) + labs(title = "Distribution of Plant Heights Among Sites")
+
+
+```
+
