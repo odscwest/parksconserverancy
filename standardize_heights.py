@@ -17,4 +17,4 @@ height = clean_data.height
 clean_data.height = height
 
 # generate a new csv files with the updated heights
-clean_data.to_csv('clean_data_w_standardized_heights.csv')
+clean_data.to_csv('clean_data_w_standardized_heights.csv', index=False)
