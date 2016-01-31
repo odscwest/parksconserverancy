@@ -4,3 +4,4 @@
 scrub*/reports/*.html
 scrub*/*/img/*.png
 .Rproj.user
+.Rhistory
