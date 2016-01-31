@@ -3,3 +3,4 @@
 .DS_Store
 scrub*/reports/*.html
 scrub*/*/img/*.png
+.Rproj.user
