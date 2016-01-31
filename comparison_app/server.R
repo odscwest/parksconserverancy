@@ -16,11 +16,6 @@ df$height[df$height == 'M'] <- 'Medium'
 df$height[df$height == 'H'] <- 'High'
 df$height[df$height == 'SH'] <- 'Super_High'
 
-df$species_lower[df$species_lower == 'anagalis arvensis'] <- 'anagallis arvensis'
-df$species_lower[df$species_lower == 'gnaphalium luteo-album'] <- 'gnaphalium luteoalbum'
-df$species_lower[df$species_lower == 'ceanothus thrysiflorus'] <- 'ceanothus thyrsiflorus'
-df$species_lower[df$species_lower == 'anthriscus caucalis'] <- 'anthriscus cacaulis'
-df$species_lower[df$species_lower == 'marah fabaceous'] <- 'marah fabaceus'
 df <- separate(data  = df, col = site_year_code, into = c("site", "year"))
 
 shinyServer(function(input, output) {
